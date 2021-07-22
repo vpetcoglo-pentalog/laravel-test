@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [\App\Http\Controllers\HomeController::class, 'index']);
+
+Route::resource('adverts', \App\Http\Controllers\AdController::class);
+Route::resource('categories', \App\Http\Controllers\CategoryController::class)->middleware(['auth', 'admin']);
+
+Route::get(
+    '/dashboard',
+    [\App\Http\Controllers\DashboardController::class, 'index']
+)
+    ->middleware(['auth', 'admin'])->name('dashboard');
+
+require __DIR__.'/auth.php';
