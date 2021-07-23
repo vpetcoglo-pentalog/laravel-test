@@ -68,11 +68,8 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        dd($category);
-
         $category->title = $request->get('title');
         $category->parent_id = $request->get('parent_id');
-        $category->category_id = $request->get('category_id');
         $category->save();
 
         return redirect()->back();

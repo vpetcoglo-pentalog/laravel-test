@@ -68,13 +68,12 @@ class AdController extends Controller
 
     /**
      * @param Request $request
-     * @param Adverb $adverb
+     * @param int $adverb
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, int $ad_id)
+    public function update(Request $request, $adverb_id)
     {
-        $adverb = Adverb::find($ad_id);
-        dd($adverb);
+        $adverb = Adverb::find($adverb_id);
 
         if (!Gate::allows('owner', $adverb)) {
             abort(403);

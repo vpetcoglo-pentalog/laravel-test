@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\AdController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,14 +17,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index']);
 
-Route::resource('adverts', \App\Http\Controllers\AdController::class);
-Route::resource('categories', \App\Http\Controllers\CategoryController::class)->middleware(['auth', 'admin']);
+Route::resource('adverts', AdController::class);
+Route::resource('categories', CategoryController::class)->middleware(['auth', 'admin']);
 
 Route::get(
     '/dashboard',
-    [\App\Http\Controllers\DashboardController::class, 'index']
+    [DashboardController::class, 'index']
 )
     ->middleware(['auth', 'admin'])->name('dashboard');
 
