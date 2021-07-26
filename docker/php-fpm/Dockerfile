@@ -32,6 +32,12 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x  | bash -
 RUN apt-get -y install nodejs
 RUN npm install
 
+# Install xdebug
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
+ADD ./docker/php-fpm/php.ini /usr/local/etc/php/php.ini
+
 # Set working directory
 WORKDIR /var/www
 

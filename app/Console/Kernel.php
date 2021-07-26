@@ -25,7 +25,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('new-user:report')->everySixHours();
+         $schedule->command('new-user:report')
+             ->everySixHours()
+             ->runInBackground();
     }
 
     /**

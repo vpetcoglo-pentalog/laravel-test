@@ -19,19 +19,30 @@
 <body data-new-gr-c-s-check-loaded="14.1022.0" data-gr-ext-installed="">
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="/">LTest</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-            @foreach(\App\Models\Category::all() as $category)
-{{--                @if(!$category->parent_id)--}}
+            @foreach($categories as $category)
+                @if(!count($category->children) && !$category->parent_id)
                     <li class="nav-item">
                         <a class="nav-link" href="?category={{ $category->id }}">{{ $category->title }}</a>
                     </li>
-{{--                @endif--}}
+                @elseif(!$category->parent_id)
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ $category->title }}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            @foreach($category->children as $subCategory)
+                                <a class="dropdown-item" href="?category={{ $subCategory->id }}">{{ $subCategory->title }}</a>
+                            @endforeach
+                        </div>
+                    </li>
+                @endif
             @endforeach
         </ul>
         @auth

@@ -1,54 +1,58 @@
 version: "3.7"
 services:
-  app:
-    build:
-      args:
-        user: www
-        uid: 1000
-      context: ./
-      dockerfile: Dockerfile
-    image: laravel-image
-    container_name: laravel-app
-    restart: unless-stopped
-    working_dir: /var/www/
-    volumes:
-      - ./:/var/www
-      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
-    networks:
-      - app-network
+    php-fpm:
+        build:
+            args:
+                user: www
+                uid: 1000
+            context: ./
+            dockerfile: docker/php-fpm/Dockerfile
+        image: laravel-image
+        volumes:
+            - ./:/var/www
+        working_dir: /var/www/
+        environment:
+            XDEBUG_CONFIG: "remote_host=host.docker.internal remote_enable=1"
+            PHP_IDE_CONFIG: "serverName=Docker"
+        networks:
+            - internal
 
-  db:
-    image: mysql:5.7
-    container_name: laravel-db
-    restart: unless-stopped
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_USER: ${DB_USERNAME}
-      SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
-    volumes:
-      - ./mysql/my.cnf:/etc/mysql/my.cnf
-      - ./mysql/docker-entrypoint-initdb.d/:/docker-entrypoint-initdb.d/
-    networks:
-      - app-network
+    nginx:
+        image: nginx:alpine
+        container_name: laravel-nginx
+        restart: unless-stopped
+        ports:
+            - 80:80
+        volumes:
+            - ./docker/nginx/log/:/var/log/nginx/
+            - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+            - ./:/var/www
+        networks:
+            - internal
 
-  nginx:
-    image: nginx:alpine
-    container_name: laravel-nginx
-    restart: unless-stopped
-    ports:
-      - 80:80
-    volumes:
-      - ./log/nginx/:/var/log/nginx/
-      - ./:/var/www
-      - ./nginx/conf.d/:/etc/nginx/conf.d/
-    networks:
-      - app-network
+    db:
+        image: mysql:5.7
+        container_name: laravel-db
+        restart: unless-stopped
+        ports:
+          - "3306:3306"
+        environment:
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_USER: ${DB_USERNAME}
+            SERVICE_TAGS: dev
+            SERVICE_NAME: mysql
+        volumes:
+            - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
+            - ./docker/mysql/docker-entrypoint-initdb.d/:/docker-entrypoint-initdb.d/
+        networks:
+            - internal
 
 networks:
-  app-network:
-    driver: bridge
+    internal:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                -   subnet: 192.168.220.0/28
