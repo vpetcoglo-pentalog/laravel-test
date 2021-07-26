@@ -52,6 +52,9 @@
                         <a class="nav-link" href="{{ url('/dashboard') }}">Dashboard</a>
                     @endif
                 </li>
+                <li>
+                    <a class="nav-link">{{ \Illuminate\Support\Facades\Auth::user()->name }}</a>
+                </li>
                 <li class="nav-item">
                     <form method="POST" action="{{ route('logout') }}" style="float: right; margin-left: 5px;">
                         @csrf

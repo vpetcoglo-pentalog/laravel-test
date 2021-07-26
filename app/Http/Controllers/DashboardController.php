@@ -27,6 +27,6 @@ class DashboardController extends Controller
     {
         $adverts = Advert::all();
         $categories = Category::all();
-        return view('dashboard', compact('adverts', 'categories'));
+        return view('admin.dashboard', compact('adverts', 'categories'));
     }
 }
