@@ -90,13 +90,13 @@
     <div class="container">
         <!-- Example row of columns -->
         <div class="row">
-            @foreach($adverbs as $adverb)
+            @foreach($adverts as $advert)
                 <div class="card col-md-3">
-                    <img class="card-img-top" src="https://picsum.photos/350/300?random={{ $adverb['id'] }}" alt="{{ $adverb['title'] }}">
+                    <img class="card-img-top" src="https://picsum.photos/350/300?random={{ $advert['id'] }}" alt="{{ $advert['title'] }}">
                     <div class="card-body">
-                        <h5 class="card-title">{{ $adverb['title'] }} - <span class="badge badge-secondary">{{ $adverb->category->title }}</span></h5>
-                        <p class="card-text">{{ $adverb['description'] }}</p>
-                        <p>${{ $adverb['price'] }}</p>
+                        <h5 class="card-title">{{ $advert['title'] }} - <span class="badge badge-secondary">{{ $advert->category->title }}</span></h5>
+                        <p class="card-text">{{ $advert['description'] }}</p>
+                        <p>${{ $advert['price'] }}</p>
                     </div>
                 </div>
             @endforeach

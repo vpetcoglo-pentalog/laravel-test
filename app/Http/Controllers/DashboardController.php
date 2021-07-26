@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Adverb;
+use App\Models\Advert;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -25,8 +25,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $adverbs = Adverb::all();
+        $adverts = Advert::all();
         $categories = Category::all();
-        return view('dashboard', compact('adverbs', 'categories'));
+        return view('dashboard', compact('adverts', 'categories'));
     }
 }

@@ -275,7 +275,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($adverbs as $adverb)
+                    @foreach($adverts as $advert)
                         <tr>
                             <td>
 							<span class="custom-checkbox">
@@ -283,19 +283,19 @@
 								<label for="checkbox1"></label>
 							</span>
                             </td>
-                            <td>{{ $adverb['title'] }}</td>
-                            <td>{{ $adverb['description'] }}</td>
-                            <td>{{ $adverb['price'] }}</td>
-                            <td>{{ $adverb->user->email }}</td>
+                            <td>{{ $advert['title'] }}</td>
+                            <td>{{ $advert['description'] }}</td>
+                            <td>{{ $advert['price'] }}</td>
+                            <td>{{ $advert->user->email }}</td>
                             <td>
-                                <a href="#editAdModal{{ $adverb['id'] }}" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                <a href="#deleteAdModal{{ $adverb['id'] }}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                <a href="#editAdModal{{ $advert['id'] }}" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a href="#deleteAdModal{{ $advert['id'] }}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 
                                 <!-- Edit Modal HTML -->
-                                <div id="editAdModal{{ $adverb['id'] }}" class="modal fade">
+                                <div id="editAdModal{{ $advert['id'] }}" class="modal fade">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <form method="post" action="/adverts/{{ $adverb['id'] }}">
+                                            <form method="post" action="/adverts/{{ $advert['id'] }}">
                                                 @method('put')
                                                 @csrf
                                                 <div class="modal-header">
@@ -305,15 +305,15 @@
                                                 <div class="modal-body">
                                                     <div class="form-group">
                                                         <label>Title</label>
-                                                        <input type="text" name="title" value="{{ $adverb['title'] }}" class="form-control" required>
+                                                        <input type="text" name="title" value="{{ $advert['title'] }}" class="form-control" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Description</label>
-                                                        <textarea type="text" name="description" class="form-control" required>{{ $adverb['description'] }}</textarea>
+                                                        <textarea type="text" name="description" class="form-control" required>{{ $advert['description'] }}</textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Price</label>
-                                                        <input type="number" name="price" value="{{ $adverb['price'] }}" class="form-control" required>
+                                                        <input type="number" name="price" value="{{ $advert['price'] }}" class="form-control" required>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -325,10 +325,10 @@
                                     </div>
                                 </div>
                                 <!-- Delete Modal HTML -->
-                                <div id="deleteAdModal{{ $adverb['id'] }}" class="modal fade">
+                                <div id="deleteAdModal{{ $advert['id'] }}" class="modal fade">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <form method="post" action="/adverts/{{ $adverb['id'] }}">
+                                            <form method="post" action="/adverts/{{ $advert['id'] }}">
                                                 @method('delete')
                                                 @csrf
                                                 <div class="modal-header">

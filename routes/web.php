@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AdController;
+use App\Http\Controllers\AdvertController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::resource('adverts', AdController::class);
+Route::resource('adverts', AdvertController::class);
 Route::resource('categories', CategoryController::class)->middleware(['auth', 'admin']);
 
 Route::get(

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Adverb;
+use App\Models\Advert;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
-class AdController extends Controller
+class AdvertController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,9 +37,9 @@ class AdController extends Controller
      */
     public function store(Request $request)
     {
-        $adverb = new Adverb($request->all());
-        $adverb->user_id = Auth::id();
-        $adverb->save();
+        $advert = new Advert($request->all());
+        $advert->user_id = Auth::id();
+        $advert->save();
 
         return redirect()->back();
     }
@@ -47,10 +47,10 @@ class AdController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Adverb  $adverb
+     * @param  \App\Models\Advert  $advert
      * @return \Illuminate\Http\Response
      */
-    public function show(Adverb $adverb)
+    public function show(Advert $advert)
     {
         //
     }
@@ -58,42 +58,42 @@ class AdController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Adverb  $adverb
+     * @param  \App\Models\Advert  $advert
      * @return \Illuminate\Http\Response
      */
-    public function edit(Adverb $adverb)
+    public function edit(Advert $advert)
     {
         //
     }
 
     /**
      * @param Request $request
-     * @param int $adverb
+     * @param int $advert
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $adverb_id)
+    public function update(Request $request, $advert_id)
     {
-        $adverb = Adverb::find($adverb_id);
+        $advert = Advert::find($advert_id);
 
-        if (!Gate::allows('owner', $adverb)) {
+        if (!Gate::allows('owner', $advert)) {
             abort(403);
         }
 
-        $adverb->title = $request->get('title');
-        $adverb->description = $request->get('description');
-        $adverb->price = $request->get('price');
-        $adverb->save();
+        $advert->title = $request->get('title');
+        $advert->description = $request->get('description');
+        $advert->price = $request->get('price');
+        $advert->save();
 
         return redirect()->back();
     }
 
     /**
-     * @param int $adverb_id
+     * @param int $advert_id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Adverb $adverb)
+    public function destroy(Advert $advert)
     {
-        $adverb->delete();
+        $advert->delete();
         return redirect()->back();
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Adverb;
+use App\Models\Advert;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AdFactory extends Factory
@@ -12,7 +12,7 @@ class AdFactory extends Factory
      *
      * @var string
      */
-    protected $model = Adverb::class;
+    protected $model = Advert::class;
 
     /**
      * Define the model's default state.

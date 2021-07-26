@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Adverb;
+use App\Models\Advert;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -15,14 +15,14 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $category = $request->query->get('category') ?? 0;
-        $adverbs = Adverb::with('category');
+        $adverts = Advert::with('category');
 
         if ((int)$category) {
-            $adverbs->where('category_id', $category);
+            $adverts->where('category_id', $category);
         }
 
-        $adverbs = $adverbs->get();
+        $adverts = $adverts->get();
 
-        return view('welcome', compact('adverbs'));
+        return view('welcome', compact('adverts'));
     }
 }

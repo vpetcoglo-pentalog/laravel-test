@@ -314,7 +314,7 @@
                                                         <select name="parent_id" id="">
                                                             <option value="">-</option>
                                                             @foreach($categories as $parent_category)
-                                                                @if ($parent_category->id !== $category->id)
+                                                                @if ($parent_category->id !== $category->id && !$parent_category->parent_id)
                                                                     <option value="{{ $parent_category->id }}" {{ $parent_category->id === $category->parent_id ? 'selected' : '' }}>{{ $parent_category->title }}</option>
                                                                 @endif
                                                             @endforeach
