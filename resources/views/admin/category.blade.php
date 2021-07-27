@@ -25,6 +25,7 @@
                         </th>
                         <th>Title</th>
                         <th>Parent category</th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
