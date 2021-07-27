@@ -20,7 +20,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::resource('adverts', AdvertController::class);
+//User resources
+Route::resource('adverts', AdvertController::class)->except('delete');
+Route::delete('adverts/{advert}', [AdvertController::class, 'destroy'])->middleware(['can:owner']);
+
+//Admin resources
 Route::resource('categories', CategoryController::class)->middleware(['auth', 'admin']);
 Route::resource('users', UserController::class)->middleware(['auth', 'admin'])->except(['create', 'store', 'update']);
 

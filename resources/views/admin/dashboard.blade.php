@@ -110,7 +110,11 @@
                 </table>
             </div>
         </div>
+
+        {{ $adverts->links() }}
+
     </div>
+
     <!-- Edit Modal HTML -->
     <div id="addAdModal" class="modal fade">
         <div class="modal-dialog">
@@ -138,7 +142,9 @@
                             <label>Category</label>
                             <select name="category_id" id="">
                                 @foreach($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->title }}</option>
+                                    @if(!count($category->children))
+                                        <option value="{{ $category->id }}">{{ $category->title }}</option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>

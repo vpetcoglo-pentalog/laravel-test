@@ -25,8 +25,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $adverts = Advert::all();
-        $categories = Category::all();
+        $adverts = Advert::paginate(20);
+        $categories = Category::query()->with('children')->get();
         return view('admin.dashboard', compact('adverts', 'categories'));
     }
 }

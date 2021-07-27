@@ -115,6 +115,9 @@
                 </table>
             </div>
         </div>
+
+        {{ $categories->links() }}
+
     </div>
     <!-- Edit Modal HTML -->
     <div id="addAdModal" class="modal fade">

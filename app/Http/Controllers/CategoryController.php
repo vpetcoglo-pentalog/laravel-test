@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Category\CategoryCreateRequest;
+use App\Http\Requests\Category\CategoryUpdateRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -12,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::paginate(20);
         return view('admin.category', compact('categories'));
     }
 
@@ -31,12 +33,12 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CategoryCreateRequest $categoryData)
     {
-        $category = new Category($request->all());
+        $category = new Category($categoryData->validated());
         $category->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Success');
     }
 
     /**
@@ -66,13 +68,13 @@ class CategoryController extends Controller
      * @param Category $category
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryUpdateRequest $categoryPostData, Category $category)
     {
-        $category->title = $request->get('title');
-        $category->parent_id = $request->get('parent_id');
+        $category->title = $categoryPostData['title'];
+        $category->parent_id = $categoryPostData['parent_id'];
         $category->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Success');
     }
 
     /**
@@ -84,6 +86,6 @@ class CategoryController extends Controller
     {
         $category->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Success');
     }
 }

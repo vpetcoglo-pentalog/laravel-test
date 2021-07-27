@@ -23,8 +23,8 @@
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-            @foreach($categories as $category)
-                @if(!count($category->children) && !$category->parent_id)
+            @foreach($menu_categories as $category)
+                @if(!count($category->children))
                     <li class="nav-item">
                         <a class="nav-link" href="?category={{ $category->id }}">{{ $category->title }}</a>
                     </li>

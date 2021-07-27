@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Enums\UserTypes;
 use Closure;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
@@ -34,7 +34,7 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->role !== 'admin') {
+        if (Auth::user()->role !== UserTypes::ADMIN) {
             throw new AccessDeniedHttpException();
         }
 

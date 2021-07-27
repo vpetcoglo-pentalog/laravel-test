@@ -3,16 +3,16 @@
 namespace App\Policies;
 
 use App\Enums\UserTypes;
-use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class ResourceOwner
 {
     use HandlesAuthorization;
 
-    public function owner(User $user, Model $resource): bool
+    public function owner(Model $resource): bool
     {
-        return $user->id === $resource->user_id || $user->role === UserTypes::ADMIN;
+        return Auth::id() === $resource->user_id || Auth::user()->role === UserTypes::ADMIN;
     }
 }

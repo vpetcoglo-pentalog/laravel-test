@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Advert\AdvertCreateRequest;
+use App\Http\Requests\Advert\AdvertUpdateRequest;
 use App\Models\Advert;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 
 class AdvertController extends Controller
 {
@@ -35,13 +36,14 @@ class AdvertController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(AdvertCreateRequest $advert)
     {
-        $advert = new Advert($request->all());
+        $advert = new Advert($advert->validated());
+
         $advert->user_id = Auth::id();
         $advert->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Success');
     }
 
     /**
@@ -68,23 +70,18 @@ class AdvertController extends Controller
 
     /**
      * @param Request $request
-     * @param int $advert
+     * @param AdvertUpdateRequest $advertPostData
+     * @param int $advertId
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $advert_id)
+    public function update(AdvertUpdateRequest $advertPostData, Advert $advert)
     {
-        $advert = Advert::find($advert_id);
-
-        if (!Gate::allows('owner', $advert)) {
-            abort(403);
-        }
-
-        $advert->title = $request->get('title');
-        $advert->description = $request->get('description');
-        $advert->price = $request->get('price');
+        $advert->title = $advertPostData['title'];
+        $advert->description = $advertPostData['description'];
+        $advert->price = $advertPostData['price'];
         $advert->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Success');
     }
 
     /**
@@ -94,6 +91,6 @@ class AdvertController extends Controller
     public function destroy(Advert $advert)
     {
         $advert->delete();
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Success');
     }
 }

@@ -61,5 +61,8 @@
                 </table>
             </div>
         </div>
+
+        {{ $users->links() }}
+
     </div>
 </x-app-layout>
