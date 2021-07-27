@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Advert\AdvertCreateRequest;
+use App\Http\Requests\Advert\AdvertDeleteRequest;
 use App\Http\Requests\Advert\AdvertUpdateRequest;
 use App\Models\Advert;
 use Illuminate\Http\Request;
@@ -88,7 +89,7 @@ class AdvertController extends Controller
      * @param int $advert_id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Advert $advert)
+    public function destroy(AdvertDeleteRequest $validate, Advert $advert)
     {
         $advert->delete();
         return redirect()->back()->with('message', 'Success');

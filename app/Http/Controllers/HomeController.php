@@ -21,7 +21,7 @@ class HomeController extends Controller
             $adverts->where('category_id', $category);
         }
 
-        $adverts = $adverts->get();
+        $adverts = $adverts->paginate(20);
 
         return view('welcome', compact('adverts'));
     }

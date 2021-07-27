@@ -11,6 +11,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/app.css" rel="stylesheet">
 </head>
 
 <body data-new-gr-c-s-check-loaded="14.1022.0" data-gr-ext-installed="">
@@ -101,8 +102,9 @@
                 </div>
             @endforeach
         </div>
-
         <hr>
+
+        {{ $adverts->links() }}
 
     </div> <!-- /container -->
 

@@ -22,7 +22,7 @@ Route::get('/', [HomeController::class, 'index']);
 
 //User resources
 Route::resource('adverts', AdvertController::class)->except('delete');
-Route::delete('adverts/{advert}', [AdvertController::class, 'destroy'])->middleware(['can:owner']);
+Route::delete('adverts/{advert}', [AdvertController::class, 'destroy']);
 
 //Admin resources
 Route::resource('categories', CategoryController::class)->middleware(['auth', 'admin']);
