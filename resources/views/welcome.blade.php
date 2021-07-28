@@ -17,7 +17,7 @@
 <body data-new-gr-c-s-check-loaded="14.1022.0" data-gr-ext-installed="">
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="/">LTest</a>
+    <a class="navbar-brand" href="{{ route('home') }}">LTest</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -27,7 +27,7 @@
             @foreach($menu_categories as $category)
                 @if(!count($category->children))
                     <li class="nav-item">
-                        <a class="nav-link" href="?category={{ $category->id }}">{{ $category->title }}</a>
+                        <a class="nav-link" href="{{ route('home') }}/{{ $category->title }}">{{ $category->title }}</a>
                     </li>
                 @elseif(!$category->parent_id)
                     <li class="nav-item dropdown">
@@ -36,7 +36,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             @foreach($category->children as $subCategory)
-                                <a class="dropdown-item" href="?category={{ $subCategory->id }}">{{ $subCategory->title }}</a>
+                                <a class="dropdown-item" href="{{ route('home') }}/{{ $category->title }}">{{ $subCategory->title }}</a>
                             @endforeach
                         </div>
                     </li>
