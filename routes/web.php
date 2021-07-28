@@ -18,7 +18,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{category?}', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'home']);
+Route::get('/home/{category?}', [HomeController::class, 'index'])->name('home');
 
 //User resources
 Route::resource('adverts', AdvertController::class)->except('delete');

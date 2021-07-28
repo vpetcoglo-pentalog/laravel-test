@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Advert;
 use App\Models\Category;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -22,5 +23,13 @@ class HomeController extends Controller
         }
 
         return view('welcome', compact('adverts'));
+    }
+
+    /**
+     * @return RedirectResponse
+     */
+    public function home(): RedirectResponse
+    {
+        return redirect()->route('home');
     }
 }
