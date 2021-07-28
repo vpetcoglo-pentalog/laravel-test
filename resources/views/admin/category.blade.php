@@ -17,26 +17,15 @@
                 <table class="table table-striped table-hover">
                     <thead>
                     <tr>
-                        <th>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="selectAll">
-								<label for="selectAll"></label>
-							</span>
-                        </th>
                         <th>Title</th>
                         <th>Parent category</th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
 
                     @foreach($categories as $category)
                         <tr>
-                            <td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox1" name="options[]" value="1">
-								<label for="checkbox1"></label>
-							</span>
-                            </td>
                             <td>{{ $category->title }}</td>
                             <td>
                                 @foreach($categories as $parent_category)

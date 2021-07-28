@@ -33,6 +33,20 @@ class AdvertTest extends TestCase
         $response->assertStatus(302);
     }
 
+    public function test_store_fail()
+    {
+        $user = User::factory()->create();
+        $response = $this->actingAs($user)->post(
+            '/adverts',
+            [
+                //
+            ]
+        );
+
+        $response->assertSessionHasErrors();
+        $response->assertStatus(302);
+    }
+
     public function test_update()
     {
         $user = User::factory()->create();
@@ -53,6 +67,24 @@ class AdvertTest extends TestCase
         $response->assertStatus(302);
     }
 
+    public function test_update_fail()
+    {
+        $user = User::factory()->create();
+        $advert = Advert::factory()->create([
+            'user_id' => $user->id
+        ]);
+
+        $response = $this->actingAs($user)->put(
+            '/adverts/' . $advert->id,
+            [
+                //
+            ]
+        );
+
+        $response->assertSessionHasErrors();
+        $response->assertStatus(302);
+    }
+
     public function test_delete()
     {
         $user = User::factory()->create();
@@ -61,7 +93,18 @@ class AdvertTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)->delete('/adverts/' . $advert->id);
+
         $response->assertSessionHasNoErrors();
         $response->assertStatus(302);
+    }
+
+    public function test_delete_fail()
+    {
+        $user = User::factory()->create();
+        $advert = Advert::factory()->create();
+        $response = $this->actingAs($user)->delete('/adverts/' . $advert->id);
+
+        $response->assertSessionHasNoErrors();
+        $response->assertStatus(403);
     }
 }

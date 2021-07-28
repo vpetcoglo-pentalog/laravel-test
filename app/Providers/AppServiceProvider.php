@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::creator('*', function($view) {
+        View::creator('welcome', function($view) {
             $view->with('menu_categories', Category::query()->where('parent_id', null)->with('children')->get());
         });
 

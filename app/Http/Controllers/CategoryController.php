@@ -68,10 +68,9 @@ class CategoryController extends Controller
      * @param Category $category
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(CategoryUpdateRequest $categoryPostData, Category $category)
+    public function update(CategoryUpdateRequest $request, Category $category)
     {
-        $category->title = $categoryPostData['title'];
-        $category->parent_id = $categoryPostData['parent_id'];
+        $category->update($request->validated());
         $category->save();
 
         return redirect()->back()->with('message', 'Success');
