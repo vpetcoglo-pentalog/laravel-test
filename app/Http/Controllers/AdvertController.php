@@ -75,11 +75,9 @@ class AdvertController extends Controller
      * @param int $advertId
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(AdvertUpdateRequest $advertPostData, Advert $advert)
+    public function update(AdvertUpdateRequest $request, Advert $advert)
     {
-        $advert->title = $advertPostData['title'];
-        $advert->description = $advertPostData['description'];
-        $advert->price = $advertPostData['price'];
+        $advert->update($request->validated());
         $advert->save();
 
         return redirect()->back()->with('message', 'Success');
@@ -89,7 +87,7 @@ class AdvertController extends Controller
      * @param int $advert_id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(AdvertDeleteRequest $validate, Advert $advert)
+    public function destroy(AdvertDeleteRequest $request, Advert $advert)
     {
         $advert->delete();
         return redirect()->back()->with('message', 'Success');

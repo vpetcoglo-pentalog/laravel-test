@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
             return Category::query()->where('title', $categoryName)->first();
         });
 
-        View::creator('*', function($view) {
+        View::creator('welcome', function($view) {
             $view->with('menu_categories', Category::query()->where('parent_id', null)->with('children')->get());
         });
 
