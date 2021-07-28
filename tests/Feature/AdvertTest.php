@@ -16,6 +16,21 @@ class AdvertTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function test_index_slug()
+    {
+        $slug = 'test_slug';
+        $category = Category::factory()->create([
+            'slug' => $slug
+        ]);
+
+        Advert::factory()->create([
+            'category_id' => $category->id
+        ]);
+
+        $response = $this->get('/home/' . $slug);
+        $response->assertStatus(200);
+    }
+
     public function test_store()
     {
         $user = User::factory()->create();

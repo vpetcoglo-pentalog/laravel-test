@@ -49,10 +49,6 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        dispatch(new SendEmailJob($request->email, new FailLoginAttempt()));
-
-        Mail::to($request->email)->send(new SignedUp());
-
         event(new Registered($user));
 
         Auth::login($user);

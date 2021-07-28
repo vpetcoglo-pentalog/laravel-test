@@ -29,7 +29,8 @@ class CategoryTest extends TestCase
         $response = $this->actingAs($user)->post(
             '/categories',
             [
-                'title' => 'test'
+                'title' => 'test',
+                'slug' => 'slug'
             ]
         );
 
@@ -65,6 +66,7 @@ class CategoryTest extends TestCase
             '/categories/' . $category->id,
             [
                 'title' => 'updated title',
+                'slug' => 'updated_slug',
             ]
         );
 

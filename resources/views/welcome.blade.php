@@ -27,7 +27,7 @@
             @foreach($menu_categories as $category)
                 @if(!count($category->children))
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('home') }}/{{ $category->title }}">{{ $category->title }}</a>
+                        <a class="nav-link" href="{{ route('home') }}/{{ $category->slug }}">{{ $category->title }}</a>
                     </li>
                 @elseif(!$category->parent_id)
                     <li class="nav-item dropdown">
@@ -36,7 +36,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             @foreach($category->children as $subCategory)
-                                <a class="dropdown-item" href="{{ route('home') }}/{{ $category->title }}">{{ $subCategory->title }}</a>
+                                <a class="dropdown-item" href="{{ route('home') }}/{{ $category->slug }}">{{ $subCategory->title }}</a>
                             @endforeach
                         </div>
                     </li>

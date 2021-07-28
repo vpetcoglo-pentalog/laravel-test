@@ -33,9 +33,9 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(CategoryCreateRequest $categoryData)
+    public function store(CategoryCreateRequest $request)
     {
-        $category = new Category($categoryData->validated());
+        $category = new Category($request->validated());
         $category->save();
 
         return redirect()->back()->with('message', 'Success');

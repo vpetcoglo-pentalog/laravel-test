@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Route::model('category', Category::class, function (string $categoryName){
-            return Category::query()->where('title', $categoryName)->first();
+            return Category::query()->where('slug', $categoryName)->first();
         });
 
         View::creator('welcome', function($view) {

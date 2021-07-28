@@ -18,6 +18,7 @@
                     <thead>
                     <tr>
                         <th>Title</th>
+                        <th>Slug</th>
                         <th>Parent category</th>
                         <th>Actions</th>
                     </tr>
@@ -27,6 +28,7 @@
                     @foreach($categories as $category)
                         <tr>
                             <td>{{ $category->title }}</td>
+                            <td>{{ $category->slug }}</td>
                             <td>
                                 @foreach($categories as $parent_category)
                                     @if($parent_category->id === $category->parent_id)
@@ -53,6 +55,10 @@
                                                     <div class="form-group">
                                                         <label>Title</label>
                                                         <input type="text" name="title" value="{{ $category->title }}" class="form-control" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Title</label>
+                                                        <input type="text" name="slug" value="{{ $category->slug }}" class="form-control" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Parent category</label>
@@ -121,6 +127,10 @@
                         <div class="form-group">
                             <label>Title</label>
                             <input type="text" name="title" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" name="slug" value="" class="form-control" required>
                         </div>
                         @if(count($categories))
                             <div class="form-group">
