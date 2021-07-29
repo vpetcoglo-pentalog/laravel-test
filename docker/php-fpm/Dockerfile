@@ -28,10 +28,6 @@ RUN useradd -G www-data,root -u $uid -d /home/$user $user
 RUN mkdir -p /home/$user/.composer && \
     chown -R $user:$user /home/$user
 
-RUN curl -sL https://deb.nodesource.com/setup_12.x  | bash -
-RUN apt-get -y install nodejs
-RUN npm install
-
 # Install xdebug
 RUN pecl install xdebug \
     && docker-php-ext-enable xdebug

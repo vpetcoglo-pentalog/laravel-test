@@ -1,6 +1,7 @@
 version: "3.7"
 services:
     php-fpm:
+        container_name: php-fpm
         build:
             args:
                 user: www
@@ -18,18 +19,39 @@ services:
             - internal
 
     nginx:
-        image: nginx:alpine
-        container_name: laravel-nginx
-        restart: unless-stopped
+        container_name: nginx
+        build:
+            context: ./docker/nginx
+            args:
+                - CHANGE_SOURCE=false
+                - PHP_UPSTREAM_CONTAINER=php-fpm
+                - PHP_UPSTREAM_PORT=9000
+                - http_proxy
+                - no_proxy
+        volumes:
+            - ./:/var/www
+            - ./docker/nginx/log:/var/log/nginx
+            - ./docker/nginx/sites:/etc/nginx/sites-available
         ports:
             - 80:80
-        volumes:
-            - ./docker/nginx/log/:/var/log/nginx/
-            - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
-            - ./:/var/www
+        depends_on:
+            - php-fpm
+            - node
         networks:
-            - internal
-
+            internal:
+                aliases:
+                    - ltest.local
+#    node:
+#        build:
+#            context: ./resources/vue
+#        working_dir: /var/www
+#        volumes:
+#            - ./resources/vue:/var/www
+#        ports:
+#            - "8080:8080"
+#        command: "npm run dev"
+#        networks:
+#            - internal
     db:
         image: mysql:5.7
         container_name: laravel-db
