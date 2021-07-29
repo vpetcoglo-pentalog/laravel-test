@@ -1,6 +1,6 @@
 <x-app-layout>
     @include('admin.layouts.layout')
-
+    <script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
     <div class="container-xl">
         <div class="table-responsive">
             <div class="table-wrapper">
@@ -49,7 +49,7 @@
 
                                 <!-- Edit Modal HTML -->
                                 <div id="editAdModal{{ $advert['id'] }}" class="modal fade">
-                                    <div class="modal-dialog">
+                                    <div class="modal-dialog" style="max-width: 900px">
                                         <div class="modal-content">
                                             <form method="post" action="/adverts/{{ $advert['id'] }}">
                                                 @method('put')
@@ -67,10 +67,13 @@
                                                         <label>Subtitle</label>
                                                         <input type="text" name="subtitle" value="{{ $advert['subtitle'] }}" class="form-control" required>
                                                     </div>
+
                                                     <div class="form-group">
                                                         <label>Description</label>
-                                                        <textarea type="text" name="description" class="form-control" required>{{ $advert['description'] }}</textarea>
+                                                        <textarea name="description">{{ $advert['description'] }}</textarea>
                                                     </div>
+v
+
                                                     <div class="form-group">
                                                         <label>Price</label>
                                                         <input type="number" name="price" value="{{ $advert['price'] }}" class="form-control" required>
@@ -121,7 +124,7 @@
 
     <!-- Edit Modal HTML -->
     <div id="addAdModal" class="modal fade">
-        <div class="modal-dialog">
+        <div class="modal-dialog" style="max-width: 900px">
             <div class="modal-content">
                 <form method="post" action="/adverts">
                     @csrf
@@ -138,10 +141,12 @@
                             <label>Subtitle</label>
                             <input type="text" name="subtitle" class="form-control" required>
                         </div>
+
                         <div class="form-group">
                             <label>Description</label>
-                            <textarea type="text" name="description" class="form-control" required></textarea>
+                            <textarea name="description"></textarea>
                         </div>
+
                         <div class="form-group">
                             <label>Price</label>
                             <input type="number" name="price" class="form-control" required>
@@ -165,4 +170,8 @@
             </div>
         </div>
     </div>
+
+    <script>
+        CKEDITOR.replace('description');
+    </script>
 </x-app-layout>

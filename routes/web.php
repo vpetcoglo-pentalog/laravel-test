@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdvertController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
@@ -25,6 +26,8 @@ Route::get('/home/{category?}', [HomeController::class, 'index'])->name('home');
 Route::resource('adverts', AdvertController::class)->except('delete');
 Route::delete('adverts/{advert}', [AdvertController::class, 'destroy']);
 Route::post('adverts/{advert}/comments', [AdvertController::class, 'comment']);
+
+Route::delete('comments/{comment}', [CommentController::class, 'destroy']);
 
 //Admin resources
 Route::resource('categories', CategoryController::class)->middleware(['auth', 'admin']);

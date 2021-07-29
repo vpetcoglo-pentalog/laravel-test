@@ -21,7 +21,7 @@
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div >
-                {{ $advert->description }}
+                {!! $advert->description !!}
             </div>
         </div>
 
@@ -32,8 +32,18 @@
         @foreach($advert->comments as $comment)
             <div>
                 {{ $comment->body }}
-                <b><i>by</i> {{ $comment->user->name }}</b>
-                <b><i>at</i> {{ $comment->created_at }}</b>
+                <div>
+                    <b><i>by</i> {{ $comment->user->name }}</b>
+                    <b><i>on</i> {{ $comment->created_at }}</b>
+
+                    @if(\Illuminate\Support\Facades\Auth::id() === $comment->user_id)
+                        <form action="/comments/{{ $comment->id }}" method="post">
+                            @csrf
+                            @method('delete')
+                            <input type="submit" class="btn btn-danger" value="Delete">
+                        </form>
+                    @endif
+                </div>
             </div>
             <hr class="my-4" />
         @endforeach
@@ -52,5 +62,4 @@
         </div>
     </div>
 </article>
-
 @include('layouts.footer')
