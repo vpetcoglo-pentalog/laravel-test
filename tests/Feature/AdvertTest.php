@@ -38,6 +38,7 @@ class AdvertTest extends TestCase
             '/adverts',
             [
                 'title' => 'test',
+                'subtitle' => 'subtitle',
                 'description' => 'test',
                 'price' => 123,
                 'category_id' => Category::factory()->create()->id,
@@ -73,6 +74,7 @@ class AdvertTest extends TestCase
             '/adverts/' . $advert->id,
             [
                 'title' => 'updated title',
+                'subtitle' => 'updated subtitle',
                 'description' => 'updated description',
                 'price' => 123,
             ]

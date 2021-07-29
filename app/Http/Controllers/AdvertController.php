@@ -6,6 +6,7 @@ use App\Http\Requests\Advert\AdvertCreateRequest;
 use App\Http\Requests\Advert\AdvertDeleteRequest;
 use App\Http\Requests\Advert\AdvertUpdateRequest;
 use App\Models\Advert;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -48,14 +49,12 @@ class AdvertController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Advert  $advert
-     * @return \Illuminate\Http\Response
+     * @param Advert $advert
+     * @return Factory|\Illuminate\Contracts\View\View
      */
     public function show(Advert $advert)
     {
-        //
+        return view('advert.show', compact('advert'));
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Models\Advert;
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class HomeController extends Controller
 {
@@ -14,15 +15,15 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(Request $request, ?Category $category)
+    public function index(?Category $category)
     {
-        if ($category) {
-            $adverts = $category->adverts()->paginate(20);
+        if ($category->id) {
+            $adverts = $category->adverts()->with('user')->paginate(20);
         } else {
-            $adverts = Advert::query()->paginate(20);
+            $adverts = Advert::query()->with('user')->paginate(20);
         }
 
-        return view('welcome', compact('adverts'));
+        return view('home', compact('adverts', 'category'));
     }
 
     /**

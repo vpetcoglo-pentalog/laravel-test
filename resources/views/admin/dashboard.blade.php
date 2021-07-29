@@ -24,7 +24,7 @@
 							</span>
                         </th>
                         <th>Title</th>
-                        <th>Description</th>
+                        <th>Subtitle</th>
                         <th>Price</th>
                         <th>User</th>
                         <th>Actions</th>
@@ -40,7 +40,7 @@
 							</span>
                             </td>
                             <td>{{ $advert['title'] }}</td>
-                            <td>{{ $advert['description'] }}</td>
+                            <td>{{ $advert['subtitle'] }}</td>
                             <td>{{ $advert['price'] }}</td>
                             <td>{{ $advert->user->email }}</td>
                             <td>
@@ -62,6 +62,10 @@
                                                     <div class="form-group">
                                                         <label>Title</label>
                                                         <input type="text" name="title" value="{{ $advert['title'] }}" class="form-control" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Subtitle</label>
+                                                        <input type="text" name="subtitle" value="{{ $advert['subtitle'] }}" class="form-control" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Description</label>
@@ -129,6 +133,10 @@
                         <div class="form-group">
                             <label>Title</label>
                             <input type="text" name="title" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Subtitle</label>
+                            <input type="text" name="subtitle" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label>Description</label>

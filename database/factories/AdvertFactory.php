@@ -26,6 +26,7 @@ class AdvertFactory extends Factory
         return [
             'price' => $this->faker->numerify(),
             'title' => $this->faker->name(),
+            'subtitle' => $this->faker->name(),
             'description' => $this->faker->text(),
             'category_id' => Category::factory()->create(),
             'user_id' => User::factory()->create(),

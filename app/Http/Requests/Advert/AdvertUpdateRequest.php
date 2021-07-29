@@ -29,7 +29,8 @@ class AdvertUpdateRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'description' => 'required|string|max:500',
+            'subtitle' => 'required|string|max:255',
+            'description' => 'required|string',
             'price' => 'required|numeric',
             'category_id' => 'numeric|exists:categories,id',
         ];
