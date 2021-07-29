@@ -41,17 +41,6 @@ services:
             internal:
                 aliases:
                     - ltest.local
-#    node:
-#        build:
-#            context: ./resources/vue
-#        working_dir: /var/www
-#        volumes:
-#            - ./resources/vue:/var/www
-#        ports:
-#            - "8080:8080"
-#        command: "npm run dev"
-#        networks:
-#            - internal
     db:
         image: mysql:5.7
         container_name: laravel-db
