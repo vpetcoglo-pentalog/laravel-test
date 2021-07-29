@@ -124,4 +124,42 @@ class AdvertTest extends TestCase
         $response->assertSessionHasNoErrors();
         $response->assertStatus(403);
     }
+
+    public function test_comment()
+    {
+        $user = User::factory()->create();
+        $advert = Advert::factory()->create();
+
+        $response = $this->actingAs($user)->post('/adverts/' . $advert->id . '/comments', [
+            'body' => 'comment body'
+        ]);
+
+        $response->assertSessionHasNoErrors();
+        $this->assertDatabaseHas('comments', [
+            'advert_id' => $advert->id,
+            'body' => 'comment body'
+        ]);
+        $response->assertStatus(302);
+    }
+
+    public function test_comment_fail()
+    {
+        $user = User::factory()->create();
+        $advert = Advert::factory()->create();
+
+        // Check Authorization
+        $response = $this->post('/adverts/' . $advert->id . '/comments', [
+            'body' => 'comment body'
+        ]);
+
+        $response->assertStatus(403);
+
+        // Check request validation
+        $response = $this->actingAs($user)->post('/adverts/' . $advert->id . '/comments', [
+            //
+        ]);
+
+        $response->assertSessionHasErrors();
+        $response->assertStatus(302);
+    }
 }

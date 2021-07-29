@@ -24,6 +24,7 @@ Route::get('/home/{category?}', [HomeController::class, 'index'])->name('home');
 //User resources
 Route::resource('adverts', AdvertController::class)->except('delete');
 Route::delete('adverts/{advert}', [AdvertController::class, 'destroy']);
+Route::post('adverts/{advert}/comments', [AdvertController::class, 'comment']);
 
 //Admin resources
 Route::resource('categories', CategoryController::class)->middleware(['auth', 'admin']);

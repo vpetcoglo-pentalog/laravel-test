@@ -20,12 +20,37 @@
 <article class="mb-4">
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-md-10 col-lg-8 col-xl-7">
+            <div >
                 {{ $advert->description }}
             </div>
         </div>
+
+        <hr class="my-4" />
+        <h3>Comments</h3>
+        <hr class="my-4" />
+
+        @foreach($advert->comments as $comment)
+            <div>
+                {{ $comment->body }}
+                <b><i>by</i> {{ $comment->user->name }}</b>
+                <b><i>at</i> {{ $comment->created_at }}</b>
+            </div>
+            <hr class="my-4" />
+        @endforeach
+
+
+        <div class="my-5">
+            <form method="post" action="/adverts/{{ $advert->id }}/comments">
+                @csrf
+                <div class="form-floating">
+                    <textarea required name="body" class="form-control is-invalid" id="message" placeholder="Enter your message here..." style="height: 12rem" data-sb-validations="required" data-sb-can-submit="no" spellcheck="false"></textarea>
+                    <label for="message">Add comment</label>
+                </div>
+                <br>
+                <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Send</button>
+            </form>
+        </div>
     </div>
 </article>
-<!-- Footer-->
 
 @include('layouts.footer')

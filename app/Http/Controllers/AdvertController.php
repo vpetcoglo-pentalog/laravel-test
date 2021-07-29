@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Advert\AdvertCreateRequest;
 use App\Http\Requests\Advert\AdvertDeleteRequest;
 use App\Http\Requests\Advert\AdvertUpdateRequest;
+use App\Http\Requests\Comment\CommentCreateRequest;
 use App\Models\Advert;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
@@ -58,14 +59,16 @@ class AdvertController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Advert  $advert
-     * @return \Illuminate\Http\Response
+     * @param Advert $advert
      */
-    public function edit(Advert $advert)
+    public function comment(CommentCreateRequest $request, Advert $advert)
     {
-        //
+        $data = $request->validated();
+        $data['user_id'] = Auth::id();
+
+        $advert->comments()->create($data);
+
+        return redirect()->back()->with('message', 'Success');
     }
 
     /**
