@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Advert\AdvertCreateRequest;
 use App\Http\Requests\Advert\AdvertDeleteRequest;
+use App\Http\Requests\Advert\AdvertIndexRequest;
 use App\Http\Requests\Advert\AdvertUpdateRequest;
 use App\Http\Requests\Comment\CommentCreateRequest;
 use App\Models\Advert;
@@ -13,14 +14,17 @@ use Illuminate\Support\Facades\Auth;
 
 class AdvertController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(AdvertIndexRequest $request)
     {
-        //
+        $query = $request->query->get('query');
+
+        if ($query) {
+            $adverts = Advert::where('user_id', Auth::id())->where('title', 'like', '%' . $query . '%')->paginate(20);
+        } else {
+            $adverts = Advert::where('user_id', Auth::id())->paginate(20);
+        }
+
+        return view('advert.index', compact('adverts'));
     }
 
     /**

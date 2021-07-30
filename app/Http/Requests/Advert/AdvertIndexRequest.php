@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Comment;
+namespace App\Http\Requests\Advert;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class CommentCreateRequest extends FormRequest
+class AdvertIndexRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,6 @@ class CommentCreateRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'body' => 'required|string|max:255',
-        ];
+        return [];
     }
 }

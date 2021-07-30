@@ -17,7 +17,7 @@ class AdvertUpdateRequest extends FormRequest
     {
         $advert = $this->route('advert');
 
-        return Auth::id() === $advert->user_id || Auth::user()->role === UserTypes::ADMIN;
+        return Auth::id() === $advert->user_id || Auth::user()->isAdministrator();
     }
 
     /**
@@ -32,7 +32,7 @@ class AdvertUpdateRequest extends FormRequest
             'subtitle' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required|numeric',
-            'category_id' => 'numeric|exists:categories,id',
+            'category_id' => 'required|numeric|exists:categories,id',
         ];
     }
 }

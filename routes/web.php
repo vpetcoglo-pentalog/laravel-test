@@ -20,11 +20,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/categories/{category?}', [HomeController::class, 'index'])->name('categories.filter');
+Route::get('/category/{category?}', [HomeController::class, 'index'])->name('categories.filter');
 
 //User resources
-Route::resource('adverts', AdvertController::class)->except('delete');
-Route::delete('adverts/{advert}', [AdvertController::class, 'destroy']);
+Route::resource('adverts', AdvertController::class);
 Route::post('adverts/{advert}/comments', [AdvertController::class, 'comment'])->name('adverts.comment');
 
 Route::delete('comments/{comment}', [CommentController::class, 'destroy'])->name('comments.delete');
@@ -32,7 +31,5 @@ Route::delete('comments/{comment}', [CommentController::class, 'destroy'])->name
 //Admin resources
 Route::resource('categories', CategoryController::class)->middleware(['auth', 'admin']);
 Route::resource('users', UserController::class)->middleware(['auth', 'admin'])->except(['create', 'store', 'update']);
-
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'admin'])->name('dashboard');
 
 require __DIR__.'/auth.php';

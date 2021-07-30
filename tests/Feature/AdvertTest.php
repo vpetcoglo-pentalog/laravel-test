@@ -12,7 +12,17 @@ class AdvertTest extends TestCase
 {
     public function test_index()
     {
-        $response = $this->get('/adverts');
+        $user = User::factory()->create();
+        $response = $this->actingAs($user)->get(route('adverts.index'));
+        $response->assertStatus(200);
+    }
+
+    public function test_index_search()
+    {
+        $user = User::factory()->create();
+        $advert = Advert::factory()->create();
+        $response = $this->actingAs($user)->get(route('adverts.index', ['query' => $advert->title]));
+        $response->assertSee($advert->title);
         $response->assertStatus(200);
     }
 
@@ -77,6 +87,7 @@ class AdvertTest extends TestCase
                 'subtitle' => 'updated subtitle',
                 'description' => 'updated description',
                 'price' => 123,
+                'category_id' => $advert->category_id,
             ]
         );
 

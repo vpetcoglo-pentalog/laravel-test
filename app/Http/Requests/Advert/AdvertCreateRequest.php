@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Advert;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class AdvertCreateRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class AdvertCreateRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::check();
     }
 
     /**
@@ -27,8 +28,8 @@ class AdvertCreateRequest extends FormRequest
             'title' => 'required|string|max:255',
             'subtitle' => 'required|string|max:255',
             'description' => 'required|string',
-            'price' => 'numeric',
-            'category_id' => 'numeric|exists:categories,id',
+            'price' => 'required|numeric',
+            'category_id' => 'required|numeric|exists:categories,id',
         ];
     }
 }

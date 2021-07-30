@@ -5,17 +5,25 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Category\CategoryCreateRequest;
 use App\Http\Requests\Category\CategoryUpdateRequest;
 use App\Models\Category;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::paginate(20);
-        return view('admin.category', compact('categories'));
+        $query = $request->query->get('query');
+
+        if ($query) {
+            $categories = Category::where('title', 'like', '%' . $query . '%')->paginate(20);
+        } else {
+            $categories = Category::paginate(20);
+        }
+
+        return view('category.index', compact('categories'));
     }
 
     /**

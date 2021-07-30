@@ -45,9 +45,11 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link px-lg-3 py-3 py-lg-4 dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}</a>
                         <div class="dropdown-menu">
-                            @if(Auth::user()->role === 'admin')
-                                    <a class="dropdown-item" href="{{ url('/dashboard') }}">Dashboard</a>
+                            @if(Auth::user()->isAdministrator())
+                                <a class="dropdown-item" href="{{ url('categories') }}">Categories</a>
                             @endif
+                            <a class="dropdown-item" href="{{ url('adverts') }}">My Adverts</a>
+                            <a class="dropdown-item" href="{{ url('settings') }}">Settings</a>
                             <a class="dropdown-item" href="#" onclick="getElementById('logout-form').submit()">
                                 {{ __('Log Out') }}
                             </a>
