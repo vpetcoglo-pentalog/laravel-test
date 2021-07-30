@@ -15,15 +15,15 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(?Category $category)
+    public function index(?Category $filterCategory)
     {
-        if ($category->id) {
-            $adverts = $category->adverts()->with('user')->paginate(20);
+        if ($filterCategory->id) {
+            $adverts = $filterCategory->adverts()->with('user')->paginate(20);
         } else {
             $adverts = Advert::query()->with('user')->paginate(20);
         }
 
-        return view('home', compact('adverts', 'category'));
+        return view('home', compact('adverts', 'filterCategory'));
     }
 
     /**

@@ -50,10 +50,11 @@
 
 
         <div class="my-5">
+            @include('layouts.alerts')
             <form method="post" action="/adverts/{{ $advert->id }}/comments">
                 @csrf
                 <div class="form-floating">
-                    <textarea required name="body" class="form-control is-invalid" id="message" placeholder="Enter your message here..." style="height: 12rem" data-sb-validations="required" data-sb-can-submit="no" spellcheck="false"></textarea>
+                    <textarea maxlength="255" required name="body" class="form-control is-invalid" id="message" placeholder="Enter your message here..." style="height: 12rem" data-sb-validations="required" data-sb-can-submit="no" spellcheck="false"></textarea>
                     <label for="message">Add comment</label>
                 </div>
                 <br>

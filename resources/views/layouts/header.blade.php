@@ -21,23 +21,64 @@
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
     <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="/home">Start Bootstrap</a>
+        <a class="navbar-brand" href="{{ route('home') }}">Start Bootstrap</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
             <i class="fas fa-bars"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto py-4 py-lg-0">
-                @foreach($menu_categories as $category)
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/home/{{ $category->slug }}">{{ $category->title }}</a></li>
-                @endforeach
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/about.html">About</a></li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/post.html">Sample Post</a></li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/contact.html">Contact</a></li>
-                @if(\Illuminate\Support\Facades\Auth::user() && \Illuminate\Support\Facades\Auth::user()->role === 'admin')
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url('/dashboard') }}">Dashboard</a></li>
-                @endif
+                <li class="nav-item dropdown">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4 dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Categories</a>
+                    <div class="dropdown-menu">
+                        @foreach($menu_categories as $category)
+                            <a class="dropdown-item" href="{{ route('category-filter', ['category' => $category->slug]) }}">{{ $category->title }}</a>
+                        @endforeach
+                    </div>
+                </li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#">About</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#">Sample Post</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#">Contact</a></li>
+
+                @auth
+                    <li class="nav-item dropdown">
+                        <a class="nav-link px-lg-3 py-3 py-lg-4 dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}</a>
+                        <div class="dropdown-menu">
+                            @if(Auth::user()->role === 'admin')
+                                    <a class="dropdown-item" href="{{ url('/dashboard') }}">Dashboard</a>
+                            @endif
+                            <a class="dropdown-item" href="#" onclick="getElementById('logout-form').submit()">
+                                {{ __('Log Out') }}
+                            </a>
+                        </div>
+                    </li>
+
+                    <form method="POST" action="{{ route('logout') }}" id="logout-form">
+                        @csrf
+                    </form>
+                @else
+                    <li class="nav-item">
+                        <a href="{{ route('login') }}" class="nav-link px-lg-3 py-3 py-lg-4">Log in</a>
+                    </li>
+                    <li class="nav-item">
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="nav-link px-lg-3 py-3 py-lg-4">Register</a>
+                        @endif
+                    </li>
+                @endauth
             </ul>
         </div>
     </div>
 </nav>
+
+<header class="masthead" style="background-image: url('/assets/img/home-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>{{ $title ?: 'Laravel test project' }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
