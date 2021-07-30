@@ -15,7 +15,7 @@ class CommentTest extends TestCase
         $user = User::factory()->create();
         $advert = Advert::factory()->create();
 
-        $response = $this->actingAs($user)->post('/adverts/' . $advert->id . '/comments', [
+        $response = $this->actingAs($user)->post(route('adverts.comment', ['advert' => $advert->id]), [
             'body' => 'comment body'
         ]);
 
@@ -33,14 +33,14 @@ class CommentTest extends TestCase
         $advert = Advert::factory()->create();
 
         // Check Authorization
-        $response = $this->post('/adverts/' . $advert->id . '/comments', [
+        $response = $this->post(route('adverts.comment', ['advert' => $advert->id]), [
             'body' => 'comment body'
         ]);
 
         $response->assertStatus(403);
 
         // Check request validation
-        $response = $this->actingAs($user)->post('/adverts/' . $advert->id . '/comments', [
+        $response = $this->actingAs($user)->post(route('adverts.comment', ['advert' => $advert->id]), [
             //
         ]);
 
@@ -53,11 +53,11 @@ class CommentTest extends TestCase
         $user = User::factory()->create();
         $advert = Advert::factory()->create();
 
-        $this->actingAs($user)->post('/adverts/' . $advert->id . '/comments', [
+        $this->actingAs($user)->post(route('adverts.comment', ['advert' => $advert->id]), [
             'body' => 'comment body'
         ]);
 
-        $response = $this->actingAs($user)->delete('/comments/' . $advert->comments[0]->id);
+        $response = $this->actingAs($user)->delete(route('comments.delete', ['comment' => $advert->comments[0]->id]));
 
         $response->assertSessionHasNoErrors();
         $response->assertStatus(302);
@@ -68,13 +68,13 @@ class CommentTest extends TestCase
         $user = User::factory()->create();
         $advert = Advert::factory()->create();
 
-        $this->actingAs($user)->post('/adverts/' . $advert->id . '/comments', [
+        $this->actingAs($user)->post(route('adverts.comment', ['advert' => $advert->id]), [
             'body' => 'comment body'
         ]);
 
         //
         $user2 = User::factory()->create();
-        $response = $this->actingAs($user2)->delete('/comments/' . $advert->comments[0]->id);
+        $response = $this->actingAs($user2)->delete(route('comments.delete', ['comment' => $advert->comments[0]->id]));
 
         $response->assertStatus(403);
     }

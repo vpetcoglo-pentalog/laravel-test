@@ -4,7 +4,7 @@ namespace Tests;
 
 use Illuminate\Support\Facades\Artisan;
 
-trait MigrateFreshSeedOnce
+trait MigrateFreshOnce
 {
     /**
      * If true, setup has run at least once.
@@ -22,7 +22,6 @@ trait MigrateFreshSeedOnce
 
         if (!static::$setUpHasRunOnce) {
             Artisan::call('migrate:fresh');
-            Artisan::call('db:seed', ['--class' => 'DatabaseSeeder']);
 
             static::$setUpHasRunOnce = true;
         }

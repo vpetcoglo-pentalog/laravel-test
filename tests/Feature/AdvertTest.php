@@ -27,7 +27,7 @@ class AdvertTest extends TestCase
             'category_id' => $category->id
         ]);
 
-        $response = $this->get('/home/' . $slug);
+        $response = $this->get(route('categories.filter', ['category' => $slug]));
         $response->assertStatus(200);
     }
 

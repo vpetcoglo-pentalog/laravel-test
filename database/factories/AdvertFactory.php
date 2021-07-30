@@ -15,9 +15,6 @@ class AdvertFactory extends Factory
      * @var string
      */
     protected $model = Advert::class;
-    private $users;
-    private $categories;
-
     /**
      * Define the model's default state.
      *
@@ -25,16 +22,16 @@ class AdvertFactory extends Factory
      */
     public function definition()
     {
-        if (empty($this->users)) $this->users = User::all();
-        if (empty($this->categories)) $this->categories = Category::all();
+        $user = User::factory()->create();
+        $category = Category::factory()->create();
 
         return [
             'price' => $this->faker->numerify(),
             'title' => $this->faker->jobTitle,
             'subtitle' => $this->faker->jobTitle." at ". $this->faker->company,
             'description' => $this->faker->text(),
-            'category_id' => $this->categories->random()->id,
-            'user_id' => $this->users->random()->id,
+            'category_id' => $category->id,
+            'user_id' => $user->id,
         ];
     }
 }

@@ -32,7 +32,7 @@
                     <a class="nav-link px-lg-3 py-3 py-lg-4 dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Categories</a>
                     <div class="dropdown-menu">
                         @foreach($menu_categories as $category)
-                            <a class="dropdown-item" href="{{ route('category-filter', ['category' => $category->slug]) }}">{{ $category->title }}</a>
+                            <a class="dropdown-item" href="{{ route('categories.filter', ['category' => $category->slug]) }}">{{ $category->title }}</a>
                         @endforeach
                     </div>
                 </li>

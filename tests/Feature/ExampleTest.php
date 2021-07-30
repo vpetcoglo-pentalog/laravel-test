@@ -14,7 +14,7 @@ class ExampleTest extends TestCase
      */
     public function test_example()
     {
-        $response = $this->get('/home');
+        $response = $this->get(route('home'));
 
         $response->assertStatus(200);
     }

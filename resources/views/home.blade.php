@@ -6,7 +6,7 @@
             @foreach($adverts as $advert)
                 <!-- Post preview-->
                     <div class="post-preview">
-                        <a href="/adverts/{{ $advert['id'] }}">
+                        <a href="{{ route('adverts.show', ['advert' => $advert['id']]) }}">
                             <h2 class="post-title">{{ $advert['title'] }}</h2>
                             <h3 class="post-subtitle">{{ $advert['subtitle'] }}</h3>
                         </a>

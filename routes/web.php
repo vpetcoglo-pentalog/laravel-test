@@ -20,14 +20,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/category/{category?}', [HomeController::class, 'index'])->name('category-filter');
+Route::get('/categories/{category?}', [HomeController::class, 'index'])->name('categories.filter');
 
 //User resources
 Route::resource('adverts', AdvertController::class)->except('delete');
 Route::delete('adverts/{advert}', [AdvertController::class, 'destroy']);
-Route::post('adverts/{advert}/comments', [AdvertController::class, 'comment']);
+Route::post('adverts/{advert}/comments', [AdvertController::class, 'comment'])->name('adverts.comment');
 
-Route::delete('comments/{comment}', [CommentController::class, 'destroy']);
+Route::delete('comments/{comment}', [CommentController::class, 'destroy'])->name('comments.delete');
 
 //Admin resources
 Route::resource('categories', CategoryController::class)->middleware(['auth', 'admin']);
