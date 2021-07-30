@@ -14,7 +14,7 @@ class AddImagesColumnToAdsTable extends Migration
     public function up()
     {
         Schema::table('ads', function (Blueprint $table) {
-            $table->text('images');
+            $table->text('images')->default('');
         });
     }
 
