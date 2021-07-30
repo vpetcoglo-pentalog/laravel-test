@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Advert;
+use App\Models\Category;
+use App\Models\Comment;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -23,5 +26,9 @@ class DatabaseSeeder extends Seeder
              'password' => Hash::make('password'),
              'remember_token' => Str::random(10),
          ]);
+
+        Category::factory()->count(30)->create();
+        Advert::factory()->count(1000)->create();
+        Comment::factory()->count(400)->create();
     }
 }
