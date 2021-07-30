@@ -3,6 +3,7 @@
 <div class="container px-4 px-l">
     <div class="row gx-4 gx-lg-5 justify-content-center">
         <div class="col-md-10 col-lg-8 col-xl-7">
+            @include('layouts.alerts')
             <form class="form-signin" method="post" action="{{ route('login') }}">
                 @csrf
                 <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
@@ -18,6 +19,9 @@
                     </label>
                 </div>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+                <br>
+                <a href="{{ route('password.email') }}">Forgot Your Password?</a>
             </form>
         </div>
     </div>

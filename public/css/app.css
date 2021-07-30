@@ -1,3 +1,10 @@
 .delete-comment {
     cursor: pointer;
 }
+
+.w-5 {
+    width: 50px!important;
+}
+.h-5 {
+    height: 50px!important;
+}

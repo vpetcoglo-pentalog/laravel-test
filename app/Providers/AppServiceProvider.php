@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with('menu_categories', Category::query()->where('parent_id', null)->with('children')->get());
         });
 
-        if ($this->app->environment('local')) {
+        if ($this->app->environment('TELESCOPE_ENABLED')) {
             $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
             $this->app->register(TelescopeServiceProvider::class);
         }

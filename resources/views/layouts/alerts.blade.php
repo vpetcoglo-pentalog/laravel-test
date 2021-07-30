@@ -13,3 +13,9 @@
         {{ session()->get('message') }}
     </div>
 @endif
+
+@if(session()->has('status'))
+    <div class="alert alert-success container alert alert-success mt-3">
+        {{ session()->get('status') }}
+    </div>
+@endif
