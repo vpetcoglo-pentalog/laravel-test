@@ -18,7 +18,7 @@ class AdvertController extends Controller
     {
         $query = $request->query->get('query');
 
-        if ($query) {
+        if (!!!$query) {
             $adverts = Advert::where('user_id', Auth::id())->where('title', 'like', '%' . $query . '%')->paginate(20);
         } else {
             $adverts = Advert::where('user_id', Auth::id())->paginate(20);
