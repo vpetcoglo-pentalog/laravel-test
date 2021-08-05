@@ -21,8 +21,7 @@ class CreateCategoriesTable extends Migration
 
             $table->softDeletes($column = 'deleted_at', $precision = 0);
 
-            $table->foreign('parent_id')->references('id')->on('categories')
-            ->cascadeOnDelete();
+            $table->foreign('parent_id')->references('id')->on('categories')->cascadeOnDelete();
         });
     }
 

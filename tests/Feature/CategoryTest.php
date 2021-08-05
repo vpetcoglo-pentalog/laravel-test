@@ -99,6 +99,7 @@ class CategoryTest extends TestCase
         ]);
 
         $category = Category::factory()->create();
+        $ad = Advert::factory()->create(['category_id' => $category->id]);
         $response = $this->actingAs($user)->delete('/categories/' . $category->id);
 
         $response->assertSessionHasNoErrors();

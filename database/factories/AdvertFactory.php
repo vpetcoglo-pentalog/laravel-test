@@ -22,8 +22,8 @@ class AdvertFactory extends Factory
      */
     public function definition()
     {
-        $user = User::factory()->create();
-        $category = Category::factory()->create();
+        $user = User::all()->random();
+        $category = Category::all()->random();
 
         return [
             'price' => $this->faker->numerify(),

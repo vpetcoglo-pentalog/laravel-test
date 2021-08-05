@@ -24,8 +24,8 @@ class CreateAdsTable extends Migration
 
             $table->softDeletes($column = 'deleted_at', $precision = 0);
 
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreign('category_id')->references('id')->on('categories')->cascadeOnDelete();
         });
     }
 

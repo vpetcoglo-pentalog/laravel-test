@@ -23,8 +23,8 @@ class CommentFactory extends Factory
      */
     public function definition()
     {
-        $user = User::factory()->create();
-        $category = Category::factory()->create();
+        $user = User::all()->random();
+        $category = Category::all()->random();
 
         return [
             'body' => $this->faker->text(),

@@ -1,4 +1,4 @@
-@include('layouts.header', ['title' => $advert->title])
+@include('layouts.header', ['title' => $advert->title . ' - ' . $advert->category->title])
 
 <article class="mb-4">
     <div class="container px-4 px-lg-5">
@@ -24,7 +24,7 @@
                     <b><i>by</i> {{ $comment->user->name }}</b>
                     <b><i>on</i> {{ $comment->created_at }}</b>
 
-                    @if(\Illuminate\Support\Facades\Auth::id() === $comment->user_id)
+                    @if(Auth::id() === $comment->user_id)
                         <form action="{{ route('comments.delete', ['comment' => $comment->id]) }}" method="post">
                             @csrf
                             @method('delete')
