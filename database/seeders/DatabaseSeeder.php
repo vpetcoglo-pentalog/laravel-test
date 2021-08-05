@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
          ]);
 
         Category::factory()->count(10)->create();
-        Advert::factory()->count(1000)->create();
-        Comment::factory()->count(400)->create();
+        Advert::factory()->count(100)->create();
+        Comment::factory()->count(100)->create();
     }
 }

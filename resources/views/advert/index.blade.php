@@ -53,7 +53,7 @@
                                             <div class="form-group">
                                                 <label for="">Category</label>
                                                 <select name="category_id" class="form-control" >
-                                                    @foreach($menu_categories as $category)
+                                                    @foreach(\App\Models\Category::all() as $category)
                                                         <option {{ $category->id === $advert->category_id ? 'selected' : '' }} value="{{ $category->id }}">{{ $category->title }}</option>
                                                     @endforeach
                                                 </select>
@@ -130,7 +130,7 @@
                     <div class="form-group">
                         <label for="">Category</label>
                         <select name="category_id" class="form-control" >
-                            @foreach($menu_categories as $category)
+                            @foreach(\App\Models\Category::all() as $category)
                                 <option value="{{ $category->id }}">{{ $category->title }}</option>
                             @endforeach
                         </select>
