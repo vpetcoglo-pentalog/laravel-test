@@ -30,6 +30,7 @@ class AdvertCreateRequest extends FormRequest
             'description' => 'required|string',
             'price' => 'required|numeric',
             'category_id' => 'required|numeric|exists:categories,id',
+            'images' => 'nullable|image',
         ];
     }
 }

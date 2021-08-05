@@ -37,8 +37,8 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'root' => public_path(),    // <-- Change the default path to the public folder
+            'url' => env('APP_URL'),    // <-- And the default URL
             'visibility' => 'public',
         ],
 

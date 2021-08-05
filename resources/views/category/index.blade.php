@@ -43,7 +43,8 @@
                                 <div class="form-group">
                                     <label for="">Parent category</label>
                                     <select name="parent_id" class="form-control" >
-                                        @foreach(\App\Models\Category::all() as $parent_category)
+                                    <option value="">-</option>
+                                    @foreach(\App\Models\Category::all() as $parent_category)
                                             <option {{ $parent_category->id === $category->parent_id ? 'selected' : '' }} value="{{ $parent_category->id }}">{{ $parent_category->title }}</option>
                                         @endforeach
                                     </select>

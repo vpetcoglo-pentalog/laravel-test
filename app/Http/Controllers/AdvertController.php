@@ -11,6 +11,7 @@ use App\Models\Advert;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AdvertController extends Controller
 {
@@ -43,9 +44,16 @@ class AdvertController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(AdvertCreateRequest $advert)
+    public function store(AdvertCreateRequest $request)
     {
-        $advert = new Advert($advert->validated());
+        $data = $request->validated();
+
+        if ($request->file('images')) {
+            $path = $request->file('images')->store('upload');
+            $data['images'] = $path;
+        }
+
+        $advert = new Advert($data);
 
         $advert->user_id = Auth::id();
         $advert->save();
@@ -83,7 +91,18 @@ class AdvertController extends Controller
      */
     public function update(AdvertUpdateRequest $request, Advert $advert)
     {
-        $advert->update($request->validated());
+        $data = $request->validated();
+
+        if ($request->file('images')) {
+            $path = $request->file('images')->store('upload');
+            $data['images'] = $path;
+        }
+
+        if ($advert->images) {
+            Storage::delete($advert->images);
+        }
+
+        $advert->update($data);
         $advert->save();
 
         return redirect()->back()->with('message', 'Success');

@@ -12,7 +12,7 @@
     <div class="row">
         @foreach($adverts as $advert)
             <div class="card col-md-3 col-sm-6 mb-3">
-                <img src="http://beepeers.com/assets/images/commerces/default-image.jpg" class="card-img-top" alt="...">
+                <img src="{{ $advert->images ?: 'http://beepeers.com/assets/images/commerces/default-image.jpg' }}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{ $advert->title }} - {{ $advert->category->title }}</h5>
                     <div class="card-text">{{ $advert->subtitle }}</div>
@@ -34,7 +34,7 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <form method="post" action="{{ route('adverts.update', ['advert' => $advert->id]) }}">
+                                    <form method="post" enctype="multipart/form-data" action="{{ route('adverts.update', ['advert' => $advert->id]) }}">
                                         <div class="modal-body">
                                             @csrf
                                             @method('put')
@@ -57,6 +57,11 @@
                                                         <option {{ $category->id === $advert->category_id ? 'selected' : '' }} value="{{ $category->id }}">{{ $category->title }}</option>
                                                     @endforeach
                                                 </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Image</label>
+                                                <img src="{{ $advert->images }}" alt="" width="100">
+                                                <input type="file" name="images">
                                             </div>
                                             <div class="form-group">
                                                 <label for="">Description</label>
@@ -112,7 +117,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="post" action="{{ route('adverts.store') }}">
+            <form method="post" enctype="multipart/form-data"  action="{{ route('adverts.store') }}">
                 <div class="modal-body">
                     @csrf
                     <div class="form-group">
@@ -134,6 +139,10 @@
                                 <option value="{{ $category->id }}">{{ $category->title }}</option>
                             @endforeach
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Image</label>
+                        <input type="file" name="images">
                     </div>
                     <div class="form-group">
                         <label for="">Description</label>

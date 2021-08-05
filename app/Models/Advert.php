@@ -23,6 +23,7 @@ class Advert extends Model
         'price',
         'user_id',
         'category_id',
+        'images',
     ];
 
     public function category(): BelongsTo
