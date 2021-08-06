@@ -11,7 +11,7 @@
     </nav>
     <div class="row">
         @foreach($adverts as $advert)
-            <div class="card col-md-3 col-sm-6 mb-3">
+            <div class="card col-md-3">
                 <img src="{{ $advert->images ?: 'http://beepeers.com/assets/images/commerces/default-image.jpg' }}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{ $advert->title }} - {{ $advert->category->title }}</h5>
@@ -22,62 +22,60 @@
                         <a href="#" data-toggle="modal" data-target="#deleteModal{{ $advert->id }}" class="btn btn-danger">Delete</a>
                     </div>
                 </div>
-            </div>
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal fade" id="editAdModal{{ $advert->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <form method="post" enctype="multipart/form-data" action="{{ route('adverts.update', ['advert' => $advert->id]) }}">
-                                        <div class="modal-body">
-                                            @csrf
-                                            @method('put')
-                                            <div class="form-group">
-                                                <label for="">Title</label>
-                                                <input type="text" name="title" class="form-control" value="{{ $advert->title }}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="">Subtitle</label>
-                                                <input type="text" name="subtitle" class="form-control" value="{{ $advert->subtitle }}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="">Price</label>
-                                                <input type="number" name="price" class="form-control" value="{{ $advert->price }}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="">Category</label>
-                                                <select name="category_id" class="form-control" >
-                                                    @foreach(\App\Models\Category::all() as $category)
-                                                        <option {{ $category->id === $advert->category_id ? 'selected' : '' }} value="{{ $category->id }}">{{ $category->title }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="">Image</label>
-                                                <img src="{{ $advert->images }}" alt="" width="100">
-                                                <input type="file" name="images">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="">Description</label>
-                                                <textarea type="text" name="description" class="description form-control">{{ $advert->description }}</textarea>
-                                            </div>
-                                            <input type="submit" hidden>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Save changes</button>
-                                        </div>
-                                    </form>
-                                </div>
+
+                <div class="modal fade" id="editAdModal{{ $advert->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
+                            <form method="post" enctype="multipart/form-data" action="{{ route('adverts.update', ['advert' => $advert->id]) }}">
+                                <div class="modal-body">
+                                    @csrf
+                                    @method('put')
+                                    <div class="form-group">
+                                        <label for="">Title</label>
+                                        <input type="text" name="title" class="form-control" value="{{ $advert->title }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Subtitle</label>
+                                        <input type="text" name="subtitle" class="form-control" value="{{ $advert->subtitle }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Price</label>
+                                        <input type="number" name="price" class="form-control" value="{{ $advert->price }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Category</label>
+                                        <select name="category_id" class="form-control" >
+                                            @foreach(\App\Models\Category::all() as $category)
+                                                <option {{ $category->id === $advert->category_id ? 'selected' : '' }} value="{{ $category->id }}">{{ $category->title }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Image</label>
+                                        <img src="{{ $advert->images }}" alt="" width="100">
+                                        <input type="file" name="images">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Description</label>
+                                        <textarea type="text" name="description" class="description form-control">{{ $advert->description }}</textarea>
+                                    </div>
+                                    <input type="submit" hidden>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
                         </div>
-                        <div class="modal fade" id="deleteModal{{ $advert->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    </div>
+                </div>
+                <div class="modal fade" id="deleteModal{{ $advert->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -100,8 +98,8 @@
                                     </form>
                                 </div>
                             </div>
-                    </div>
-                </div>
+                        </div>
+
             </div>
         @endforeach
         {{ $adverts->appends(['query' => app('request')->input('query')])->links() }}

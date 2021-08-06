@@ -20,7 +20,9 @@ class AdvertTest extends TestCase
     public function test_index_search()
     {
         $user = User::factory()->create();
-        $advert = Advert::factory()->create();
+        $advert = Advert::factory()->create([
+            'category_id' => Category::factory()->create()
+        ]);
         $response = $this->actingAs($user)->get(route('adverts.index', ['query' => $advert->title]));
         $response->assertSee($advert->title);
         $response->assertStatus(200);

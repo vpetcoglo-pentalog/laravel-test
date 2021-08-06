@@ -22,7 +22,6 @@ trait MigrateFreshOnce
 
         if (!static::$setUpHasRunOnce) {
             Artisan::call('migrate:fresh');
-            Artisan::call('db:seed', ['--class' => 'DatabaseSeeder']);
 
             static::$setUpHasRunOnce = true;
         }
