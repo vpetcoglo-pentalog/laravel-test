@@ -18,9 +18,9 @@ class CategoryController extends Controller
         $query = $request->query->get('query');
 
         if ($query) {
-            $categories = Category::where('title', 'like', '%' . $query . '%')->paginate(20);
+            $categories = Category::where('title', 'like', '%' . $query . '%')->whereIsNull('parent_id')->paginate(20);
         } else {
-            $categories = Category::paginate(20);
+            $categories = Category::whereNull('parent_id')->paginate(20);
         }
 
         return view('category.index', compact('categories'));

@@ -32,8 +32,22 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link px-lg-3 py-3 py-lg-4 dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Categories</a>
                     <div class="dropdown-menu">
-                        @foreach(\App\Models\Category::query()->with(['children', 'adverts'])->get() as $category)
-                            <a class="dropdown-item" href="{{ route('categories.filter', ['category' => $category->slug]) }}">{{ $category->title }} - {{ $category->adverts_count() }}</a>
+                        @foreach(\App\Models\Category::query()->with(['children'])->withCount('adverts')->get() as $category)
+                            @if(!count($category->children))
+                                <a class="dropdown-item" href="{{ route('categories.filter', ['category' => $category->slug]) }}">
+                                    {{ $category->title }} - {{ $category->adverts_count }}
+                                </a>
+                            @else
+                                <a class="nav-link px-lg-3 py-3 py-lg-4 dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ $category->title }} - {{ $category->adverts_count ?? 0 }}</a>
+
+                                <div class="dropdown-menu">
+                                    @foreach($category->children as $child)
+                                        <a class="dropdown-item" href="{{ route('categories.filter', ['category' => $child->slug]) }}">
+                                            {{ $child->title }} - {{ $child->adverts_count ?? 0 }}
+                                        </a>
+                                    @endforeach
+                                </div>
+                            @endif
                         @endforeach
                     </div>
                 </li>

@@ -25,9 +25,4 @@ class Category extends Model
     {
         return $this->hasMany(Advert::class, 'category_id');
     }
-
-    public function adverts_count(): int
-    {
-        return $this->hasMany(Advert::class, 'category_id')->count();
-    }
 }

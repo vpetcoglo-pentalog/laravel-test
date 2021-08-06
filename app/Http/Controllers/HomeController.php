@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Advert;
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
-
 class HomeController extends Controller
 {
     /**
