@@ -3,8 +3,8 @@
 use App\Http\Controllers\AdvertController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +25,9 @@ Route::get('/category/{category?}', [HomeController::class, 'index'])->name('cat
 //User resources
 Route::resource('adverts', AdvertController::class);
 Route::post('adverts/{advert}/comments', [AdvertController::class, 'comment'])->name('adverts.comment');
+
+Route::get('/settings', [ProfileController::class, 'index'])->name('settings')->middleware('auth');
+Route::post('/settings', [ProfileController::class, 'update'])->name('settings.update')->middleware('auth');
 
 Route::delete('comments/{comment}', [CommentController::class, 'destroy'])->name('comments.delete');
 
